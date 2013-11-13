@@ -1,0 +1,136 @@
+FORMAT: 1A
+
+# OAP Buyer API v1
+
+The **Open Advertising Protocol** is a [RESTful protocol](https://en.wikipedia.org/wiki/Representational_state_transfer) to enable programmatic direct 
+buying and selling of advertising inventory.
+
+The OAP Buyer API describes the services that a buyer server provides to a seller client
+within the Open Advertising Protocol. 
+
+This version 1.0 is an [MVP (minimum viable product)](http://en.wikipedia.org/wiki/Minimum_viable_product) implementation of the Open Advertising Protocol. It currently enables you to maintain your directory of advertising programs, to receive orders, and to update order status.
+
+This API is complemented by the [OAP Seller API](http://docs.oapsellerapi.apiary.io/). All comments can be written in [Markdown](http://daringfireball.net/projects/markdown/syntax) syntax.
+
+# Group Programs
+
+This resource enables sellers of advertising programs to publish your catalog of advertising programs 
+on the buyer's system. With this API you can 
+add, modify, or delete your advertising programs in the buyer's catalog. This information is used 
+to find your advertising programs when it matches the buyers criteria and to place orders.
+
+## Program [/programs/{id}]
+This resource represents one particular advertising program identified by its *id*.
+
++ Parameters
+    + id (required, string, `1001`) ... The unique identifier of the Advertising Program.
+    
++ Model
+
+        { "program": "an advertising program in application/json or application/xml format"}
+    
+### Retrieve a single Program [GET]
+Retrieve a program by its *id*.
+
++ Response 200
+
+    [Program][]
+
+### Update a Program [PUT]
+Update an existing advertising program.
+
++ Response 204
+
+### Delete a Program [DELETE]
+Delete a program.  **Warning:** This action **permanently** removes the program from the database.
+
++ Response 204
+
+## Programs Collection [/programs{?q,created,updated}]
+This resource represents your set of advertising programs.
+
++ Model (application/json)
+
+        { "program": "an advertising program in application/json or application/xml format"}
+
+### List All Programs [GET]
+Returns the Programs in your catalog. If no parameters are provided, all Programs are returned.
+
++ Parameters
+    + q (optional, string, `electric vehicle`) ... for full text search, the query string
+    + created (optional, string, `2013-11-13T10:25:13Z`) ... Only Programs created at or after this time are returned. Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` 
+    + updated (optional, string, `2013-11-13T10:25:13Z`) ... Only Programs updated at or after this time are returned. Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` 
+    
+
++ Response 200
+
+    [Programs Collection][]
+
+### Create a new Program [POST]
+Creates a new advertising Program in your catalog. Returns the newly created program.
+
++ Request 
+
+    [Program][]
+
++ Response 201
+
+    [Program][]
+
+# Group Orders
+
+This resource enables sellers of advertising programs to work with the orders the buyer has placed with the seller. With this API you can 
+get your orders, update the status of your orders, get tags related to your orders, and get delivery counts.
+
+## Order [/orders/{id}]
+This resource represents one particular Order identified by its *id*.
+
++ Parameters
+    + id (required, string, `1001abc`) ... The unique identifier of the Order.
+    
++ Model
+
+        { "order": "an Order in application/json or application/xml format"}
+
+### Retrieve a single Order [GET]
+Retrieve an Order by its *id*.
+
++ Response 200
+
+    [Order][]  
+    
+## Orders Collection [/orders?q,created,updated]
+
+This resource reresents your set of Orders from this buyer.
+
++ Model (application/json)
+
+        { "orders": "a set of orders in application/json or application/xml format"}
+
+### List All Orders [GET]
+Returns your Orders. If no parameters are provided, all Orders are returned.
+
++ Parameters
+    + q (optional, string, `tesla spring`) ... for full text search, the query string
+    + created (optional, string, `2013-11-13T10:25:13Z`) ... Only Orders created at or after this time are returned. Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` 
+    + updated (optional, string, `2013-11-13T10:25:13Z`) ... Only Orders updated at or after this time are returned. Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` 
+
++ Response 200
+
+    [Orders Collection][]
+
+
+## Update Order Status [/orders/{id}?status]
+Update the status of an existing Order with the given ID.
+
++ Parameters
+    + id (required, string, `1001abc`) ... The unique identifier of the Order.
+    + status (required, string)
+        The status of the Order.
+        + Values
+            + `Accepted`
+            + `Rejected`
+
+### Update the status of an Order [PUT]
+
++ Response 204
