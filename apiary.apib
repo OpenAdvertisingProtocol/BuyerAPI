@@ -27,7 +27,7 @@ This resource represents one particular advertising program identified by its *i
     
 + Model
 
-        { "programs": "a collection of advertising programs in application/json or application/xml format"}
+        { "program": "a single advertising program in application/json or application/xml format"}
     
 ### Retrieve a single Program [GET]
 Retrieve a program by its *id*.
@@ -51,7 +51,7 @@ This resource represents your set of advertising programs.
 
 + Model (application/json)
 
-        { "program": "an advertising program in application/json or application/xml format"}
+        { "programs": "a collection of advertising programs in application/json or application/xml format"}
 
 ### List All Programs [GET]
 Returns the Programs in your catalog. If no parameters are provided, all Programs are returned.
@@ -90,7 +90,7 @@ This resource represents one particular Order identified by its *id*.
     
 + Model
 
-        { "order": "an Order in application/json or application/xml format"}
+        { "order": "a single Order in application/json or application/xml format"}
 
 ### Retrieve a single Order [GET]
 Retrieve an Order by its *id*.
